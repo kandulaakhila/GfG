@@ -1,18 +1,17 @@
 class Solution {
     public int minParentheses(String s) {
         Stack<Character>stack=new Stack<>();
-        int insertions=0;
         for(char c:s.toCharArray()){
             if(c=='('){
                 stack.push(c);
             }else{
-                if(!stack.isEmpty()){
+                if(!stack.isEmpty() && stack.peek()=='('){
                     stack.pop();
                 }else{
-                    insertions++;
+                    stack.push(c);
                 }
             }
         }
-        return insertions+stack.size();
+        return stack.size();
     }
 }
