@@ -1,7 +1,8 @@
 class Solution {
     public int maxCharGap(String s) {
-        //better solution
-        HashMap<Character, Integer> map = new HashMap<>();
+        //optimal solution 
+        int[] first = new int[26];
+        Arrays.fill(first, -1);
 
         int ans = -1;
 
@@ -9,13 +10,15 @@ class Solution {
 
             char ch = s.charAt(i);
 
-            if (!map.containsKey(ch)) {
+            int index = ch - 'a';
 
-                map.put(ch, i);
-
+            if (first[index] == -1) {
+                // First occurrence of the character
+                first[index] = i;
             } else {
-
-                ans = Math.max(ans, i - map.get(ch) - 1);
+                // Character already seen
+                int distance = i - first[index] - 1;
+                ans = Math.max(ans, distance);
             }
         }
 
